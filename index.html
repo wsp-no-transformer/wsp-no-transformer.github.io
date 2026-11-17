@@ -80,7 +80,7 @@ video{display:block;width:100%;border:1px solid var(--line);border-radius:10px;b
 @media(max-width:900px){.figrow,.figrow.two{grid-template-columns:1fr}}
 </style></head><body>
 <header class='site-header'><div class='header-inner'><a class='brand' href='#top'>Weight-Space Programming <span>Doesn't Need Transformers</span></a>
-<nav><a href='#build'>What LLMs build</a><a href='#why'>Why tables</a><a href='#demo'>Try it</a><a href='#ours'>Our model</a><a href='#results'>Results</a><a href='#beyond'>Beyond ARC</a><a href='#team'>Team</a></nav></div></header>
+<nav><a href='#build'>What LLMs build</a><a href='#why'>Why tables</a><a href='demo.html'>Try it</a><a href='#ours'>Our model</a><a href='#results'>Results</a><a href='#beyond'>Beyond ARC</a><a href='#team'>Team</a></nav></div></header>
 <main>
 <section class='hero' id='top'><div class='wrap'>
 <h1>Weight-Space Programming <span>Doesn't Need Transformers</span></h1>
@@ -113,126 +113,7 @@ video{display:block;width:100%;border:1px solid var(--line);border-radius:10px;b
 <div class='figrow two'><figure><video src='videos/trace_designed.mp4' autoplay muted loop playsinline></video><figcaption>On the same question, Claude Opus 5.5's first-generation LLM-designed model maps words to concepts and finds each option's best fact. After the rules, option D (hollow bones) scores 55.9, while others score 20.1 to 26.8.</figcaption></figure><figure><video src='videos/trace_memory.mp4' autoplay muted loop playsinline></video><figcaption>In our first-generation associative-memory-based model, the same question's four strongest concepts form six pairs. At pair-table row 358,377, (adaptation, fly) recalls hollow, bones, feathers, light, and body; with the concept table, option D scores 52.1.</figcaption></figure></div>
 <figure><img src='figs/v2/trace.png' alt='Step-by-step trace of the ARC test question about which adaptation helps a bird fly through an LLM-designed table model and our associative-memory-based model, highlighting question concepts in blue and option concepts in orange.' loading='lazy'><figcaption>The panels follow the unseen ARC test question "Which adaptation helps a bird fly?" through Claude Opus 5.5's LLM-designed model and our associative-memory-based model, marking question concepts in blue and candidate option concepts in orange. Both traces show how the winning score for "hollow bones" comes directly from named table entries that the LLM wrote.</figcaption></figure>
 <!-- demo:start -->
-<style>
-#demo{margin-top:56px;padding-top:40px;border-top:1px solid #dde3e8;--d-bar:#c9dbe3;--d-good:#2f7d4f;--d-bad:#a8432f}
-#demo h3{font-size:clamp(24px,2.6vw,32px);font-weight:650;letter-spacing:-.025em;line-height:1.15;text-wrap:balance}
-#demo button{font-family:inherit;color:inherit;cursor:pointer}
-.d-lede{margin-top:14px;max-width:46em;color:#3a454c}
-.d-steps{display:flex;flex-wrap:wrap;gap:10px;margin:20px 0 0;padding:0;list-style:none;font-size:14px;counter-reset:s}
-.d-steps li{counter-increment:s;padding:7px 12px;border:1px solid var(--line);border-radius:5px;background:#fff;max-width:100%}
-.d-steps li::before{content:counter(s);font-weight:650;color:var(--accent-ink);margin-right:8px}
-.d-pick{display:flex;flex-wrap:wrap;gap:8px;margin-top:24px}
-.d-pick button{border:1px solid var(--line);background:#fff;border-radius:999px;padding:5px 12px;font-size:13px;color:#3a454c;max-width:min(100%,26em);text-align:left;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.d-pick button[aria-pressed=true]{border-color:var(--accent);color:var(--accent-ink);background:#eef4f7;font-weight:550}
-.d-grid{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(0,1fr);gap:28px;margin-top:20px;align-items:start}
-.d-card{border:1px solid var(--line);border-radius:10px;background:#fff;padding:20px;min-width:0}
-.d-head{position:sticky;top:var(--header);z-index:5;background:#fff;margin:-20px -20px 0;padding:20px 20px 14px;border-bottom:1px solid var(--line);border-radius:10px 10px 0 0}
-.d-eye{color:var(--accent-ink);font-size:11.5px;font-weight:650;letter-spacing:.09em;text-transform:uppercase}
-.d-q{font-size:20px;font-weight:650;letter-spacing:-.02em;line-height:1.2;margin-top:6px}
-.d-opts{display:grid;gap:8px;margin-top:14px}
-.d-opt{display:grid;grid-template-columns:minmax(0,12em) minmax(0,1fr) 4.5em;gap:10px;align-items:center;font-size:14.5px}
-.d-opt .d-lab{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.d-opt .d-lab b{color:var(--muted);font-weight:650;margin-right:6px}
-.d-track{height:14px;background:var(--tint);border-radius:3px;overflow:hidden}
-.d-fill{display:block;height:100%;background:var(--d-bar);transition:width .35s ease}
-.d-opt.d-win .d-fill{background:var(--accent)}
-.d-opt.d-win .d-lab{font-weight:650}
-.d-val{text-align:right;color:var(--muted);font-variant-numeric:tabular-nums;font-size:13px}
-.d-tag{font-size:11px;font-weight:650;padding:1px 6px;border-radius:4px;margin-left:6px;vertical-align:1px;color:var(--d-good);border:1px solid var(--d-good)}
-.d-verdict{margin-top:10px;font-size:14px;font-weight:550}
-.d-verdict.ok{color:var(--d-good)} .d-verdict.no{color:var(--d-bad)}
-.d-small{color:var(--muted);font-size:12.5px;margin-top:10px}
-.d-rows h4{font-size:15px;font-weight:650;margin:20px 0 0}
-.d-group{margin-top:12px}
-.d-gl{font-size:12.5px;color:var(--muted);font-weight:550}
-.d-gl b{color:var(--ink);font-weight:650;margin-left:6px}
-.d-gl b.d-on{color:var(--accent-ink)}
-.d-row{display:grid;grid-template-columns:minmax(0,1fr) 70px auto;gap:10px;align-items:center;padding:8px 0;border-top:1px solid var(--line);font-size:14px;line-height:1.45}
-.d-row .d-txt{min-width:0}
-.d-src{display:block;color:var(--muted);font-size:11.5px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;overflow-wrap:anywhere}
-.d-mini{height:8px;background:var(--tint);border-radius:2px;overflow:hidden}
-.d-mini span{display:block;height:100%;background:var(--d-bar)}
-.d-row.d-visitor .d-txt{color:var(--accent-ink)}
-.d-x{border:1px solid var(--line);background:#fff;border-radius:5px;width:30px;height:28px;font-size:15px;line-height:1;color:var(--muted)}
-.d-x:hover{border-color:var(--d-bad);color:var(--d-bad)}
-.d-add{display:flex;gap:8px;margin-top:16px;flex-wrap:wrap}
-.d-add input{flex:1 1 220px;min-width:0;border:1px solid #cfd8dd;border-radius:6px;padding:8px 10px;font:inherit;font-size:14px;color:var(--ink);background:#fff}
-.d-btn{border:1px solid #cfd8dd;border-radius:6px;padding:8px 14px;font-size:14px;font-weight:550;background:#fafbfc}
-.d-btn.d-primary{background:var(--accent);border-color:var(--accent);color:#fff}
-.d-btn:disabled{opacity:.5;cursor:default}
-.d-side{position:sticky;top:calc(var(--header) + 12px);display:grid;gap:16px;min-width:0}
-.d-acc{font-size:44px;font-weight:650;letter-spacing:-.03em;font-variant-numeric:tabular-nums;line-height:1.1;margin-top:6px}
-.d-delta{font-size:14px;font-weight:550;margin-top:2px;font-variant-numeric:tabular-nums;color:var(--muted)}
-.d-delta.up{color:var(--d-good)} .d-delta.down{color:var(--d-bad)}
-.d-prog{height:6px;background:var(--tint);border-radius:3px;overflow:hidden;margin-top:12px}
-.d-prog span{display:block;height:100%;width:0;background:var(--accent);transition:width .15s linear}
-.d-stat{display:flex;justify-content:space-between;gap:12px;font-size:13.5px;padding:7px 0;border-top:1px solid var(--line);font-variant-numeric:tabular-nums}
-.d-stat span:first-child{color:var(--muted)}
-.d-stat b{font-weight:650}
-.d-first{margin-top:12px}
-.d-err{color:var(--d-bad);font-size:13.5px;margin-top:10px}
-.d-changed{font-size:13px;color:#3a454c;margin-top:8px}
-.d-changed summary{cursor:pointer;color:var(--ink);font-weight:550}
-.d-clist{max-height:14em;overflow:auto;margin-top:6px}
-.d-clist div{display:flex;gap:8px;padding:4px 0;border-top:1px solid var(--line)}
-.d-clist i{font-style:normal;font-weight:650;flex:none;width:6.6em;white-space:nowrap}
-.d-clist .gain i{color:var(--d-good)} .d-clist .loss i{color:var(--d-bad)} .d-clist .swap i{color:var(--muted)}
-.d-edits{display:grid;gap:8px;margin-top:12px}
-.d-edit{display:flex;gap:10px;align-items:flex-start;justify-content:space-between;font-size:13.5px;border:1px solid var(--line);border-radius:7px;padding:8px 10px;line-height:1.45}
-.d-edit b{font-weight:650;margin-right:6px}
-@media(max-width:900px){.d-grid{grid-template-columns:1fr}.d-side,.d-head{position:static}.d-opt{grid-template-columns:minmax(0,9em) minmax(0,1fr) 4em}}
-</style>
-<div id='demo'>
-<h3>Edit the Model Weights</h3>
-<p class='d-lede'>Claude Opus 5.5 wrote the model weights directly without gradient training for ARC (grade-school science multiple choice). Edit the main weight, a fact table of plain sentences, to rebuild the model and answer all 3,530 test questions again in your browser.</p>
-<ol class='d-steps'><li>Pick a question to see the option scores from matching fact rows and fixed rules.</li><li>Delete a fact row or write a new plain sentence to edit the weights.</li><li>Check the new answer and the updated accuracy over all 3,530 ARC test questions.</li></ol>
-<div class='d-pick' id='d-pick'></div>
-<div class='d-grid'>
-  <div class='d-card' aria-live='polite'>
-    <div class='d-head'>
-      <div class='d-eye' id='d-meta'>ARC test question</div>
-      <p class='d-q' id='d-qtext'>Loading the model…</p>
-      <div class='d-opts' id='d-opts'></div>
-      <p class='d-verdict' id='d-verdict'></p>
-    </div>
-    <p class='d-small' id='d-birdnote' hidden>Here the strongest fact row is "Hollow bones make birds light so they can fly." Deleting that row keeps hollow bones as the answer because of the next row, "Birds have air sacs and hollow bones that make flying easier."</p>
-    <div class='d-rows'>
-      <h4>Fact rows the model read for each option</h4>
-      <div id='d-rows'></div>
-      <p class='d-small'>Each bar shows the retrieval score for how strongly a fact row matches the question and that option, rather than a causal attribution.</p>
-    </div>
-    <div class='d-add'>
-      <input id='d-addtext' maxlength='300' placeholder='Write a new fact in one plain sentence' aria-label='New fact row'>
-      <button class='d-btn d-primary' id='d-addbtn'>Add row</button>
-    </div>
-  </div>
-  <div class='d-side'>
-    <div class='d-card'>
-      <div class='d-eye'>ARC test accuracy, 3,530 questions</div>
-      <div class='d-acc' id='d-acc'>—</div>
-      <div class='d-delta' id='d-delta'>unedited model 50.80%</div>
-      <div class='d-prog'><span id='d-progbar'></span></div>
-      <div class='d-stat d-first'><span>Checked</span><span id='d-checked'>—</span></div>
-      <div class='d-stat'><span>Answers your edits changed</span><span id='d-nchanged'>—</span></div>
-      <details class='d-changed' id='d-changedbox' hidden><summary id='d-changedsum'></summary><div class='d-clist' id='d-changed'></div></details>
-      <p class='d-small'>The accuracy shown is over all 3,530 ARC test questions, and it is 50.80% for the unedited model. A question where all four answer options tie counts as one quarter correct.</p>
-      <p class='d-err' id='d-err' hidden></p>
-    </div>
-    <div class='d-card'>
-      <div class='d-eye'>Response time on this device</div>
-      <div class='d-stat d-first'><span>This question</span><b id='d-tq'>—</b></div>
-      <div class='d-stat'><span>All 3,530 questions</span><b id='d-tall'>—</b></div>
-    </div>
-    <div class='d-card'>
-      <div class='d-eye'>Your edits</div>
-      <div class='d-edits' id='d-mylist'><p class='d-small' style='margin:0'>No edits yet.</p></div>
-      <button class='d-btn' id='d-reset' style='margin-top:12px' disabled>Reset all edits</button>
-    </div>
-  </div>
-</div>
-</div>
-<script src='demo/wsp_engine.js' defer></script>
-<script defer src='demo/demo.js'></script>
+<div class='links'><a class='button on' href='demo.html'>Try it: edit the fact table and rescore ARC live</a></div>
 <!-- demo:end -->
 </div></section>
 
