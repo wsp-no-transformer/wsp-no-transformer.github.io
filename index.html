@@ -80,7 +80,7 @@ video{display:block;width:100%;border:1px solid var(--line);border-radius:10px;b
 @media(max-width:900px){.figrow,.figrow.two{grid-template-columns:1fr}}
 </style></head><body>
 <header class='site-header'><div class='header-inner'><a class='brand' href='#top'>Weight-Space Programming <span>Doesn't Need Transformers</span></a>
-<nav><a href='#build'>What LLMs build</a><a href='#why'>Why tables</a><a href='demo.html'>Try it</a><a href='#ours'>Our model</a><a href='#results'>Results</a><a href='#beyond'>Beyond ARC</a><a href='#team'>Team</a></nav></div></header>
+<nav><a href='#build'>What LLMs build</a><a href='#why'>Why tables</a><a href='demo.html'>Try it</a><a href='#ours'>Our model</a><a href='#results'>Results</a><a href='#beyond'>Beyond ARC</a><a href='#team'>Team</a><a href='#citation'>Citation</a></nav></div></header>
 <main>
 <section class='hero' id='top'><div class='wrap'>
 <h1>Weight-Space Programming <span>Doesn't Need Transformers</span></h1>
@@ -89,7 +89,7 @@ video{display:block;width:100%;border:1px solid var(--line);border-radius:10px;b
 <div class='flow'><span>LLM writes plain-text facts</span><i>→</i><strong>Compiles a sparse table</strong><i>→</i><span>Model reads a few rows</span></div>
 <p class='lede'>Transformers were chosen because they train well with gradient descent and run fast on GPUs. In weight-space programming, a large language model (LLM) writes target weights by hand without gradient-based training, so those reasons no longer apply. When left free to design with ten labeled science questions and a sandbox, three frontier LLMs all compile plain-text facts into a sparse table read by a fixed procedure.</p>
 <p class='authors'>Hyunjong Ok<sup>1</sup> &nbsp; Jaeho Lee<sup>1</sup></p><p class='affil'><sup>1</sup>POSTECH</p>
-<div class='links'><a class='button on' href='https://www.alphaxiv.org/abs/2611.weight-space-programming-associative-memory'>Paper</a><a class='button on' href='https://github.com/effl-lab/Weight-Space-Programming'>Code and models</a><a class='button on demo' href='demo.html'>Try demo</a></div>
+<div class='links'><a class='button on' href='https://arxiv.org/abs/2611.22055'>Paper</a><a class='button on' href='https://github.com/effl-lab/Weight-Space-Programming'>Code and models</a><a class='button on demo' href='demo.html'>Try demo</a></div>
 </div>
 <aside class='evidence'><p class='eyebrow'>Key findings</p><ul>
 <li><a href='#build'><p class='stat'>54.4%</p><h3>Best ARC test accuracy</h3><p>An LLM-designed model written by Claude Opus 5.5 reaches this score in generation 5.</p></a></li>
@@ -145,7 +145,19 @@ video{display:block;width:100%;border:1px solid var(--line);border-radius:10px;b
 <section class='section tint' id='team'><div class='wrap'>
 <p class='eyebrow'>Team</p><h2>Authors</h2>
 <div class='team'><div><strong>Hyunjong Ok</strong><span>POSTECH</span></div><div><strong>Jaeho Lee</strong><span>POSTECH</span></div></div>
-<p class='note'>The paper and BibTeX entry will appear here with the arXiv release.</p>
+</div></section>
+
+<section class='section' id='citation'><div class='wrap'>
+<p class='eyebrow'>Citation</p><h2>BibTeX</h2>
+<pre>@misc{ok2026weightspaceprogrammingdoesntneed,
+      title={Weight-Space Programming Doesn't Need Transformers},
+      author={Hyunjong Ok and Jaeho Lee},
+      year={2026},
+      eprint={2611.22055},
+      archivePrefix={arXiv},
+      primaryClass={cs.LG},
+      url={https://arxiv.org/abs/2611.22055},
+}</pre>
 </div></section>
 </main>
 <footer><div class='wrap'><span>Weight-Space Programming Doesn't Need Transformers</span><span>POSTECH</span></div></footer>
